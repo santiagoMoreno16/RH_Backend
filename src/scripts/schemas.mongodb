@@ -1,0 +1,72 @@
+db.createCollection("Access", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["email", "password", "created_at"],
+      properties: {
+        email: { bsonType: "string" },
+        password: { bsonType: "string" },
+        created_in_system: { bsonType: "date" },
+        user_id: { bsonType: "objectId" },
+      },
+    },
+  },
+});
+
+db.Access.createIndex({ email: 1 }, { unique: true });
+
+db.createCollection("User", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "firstName",
+        "lastName",
+        "identificationType",
+        "identificationNumber",
+        "phone",
+        "gender",
+        "birthdate",
+        "numberChildren",
+        "bossLeader",
+        "entryIntoCompany",
+        "humanResources",
+        "photoUser",
+        "accessId",
+      ],
+      properties: {
+        firstName: { bsonType: "string" },
+        lastName: { bsonType: "string" },
+        identificationType: { enum: [1, 2, 3, 4] }, // CC, C.E, NIT, PAS
+        identificationNumber: { bsonType: "string" },
+        phone: { bsonType: "string" },
+        gender: { bsonType: "string" },
+        birthdate: { bsonType: "date" },
+        numberChildren: { bsonType: "string" },
+        bossLeader: { bsonType: "string" },
+        entryIntoCompany: { bsonType: "string" },
+        humanResources: { bsonType: "string" },
+        photoUser: { bsonType: "string" },
+        accessId: { bsonType: "objectId" },
+      },
+    },
+  },
+});
+
+db.Usuario.createIndex({ identificationNumber: 1 }, { unique: true });
+
+db.createCollection("Role", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "status", "limitPoints"],
+      properties: {
+        name: { bsonType: "string" },
+        status: { enum: [1, 2, 3] },
+        limitPoints: { bsonType: "int" },
+      },
+    },
+  },
+});
+
+db.Role.createIndex({ name: 1 }, { unique: true });
