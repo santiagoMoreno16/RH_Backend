@@ -1,4 +1,8 @@
-import { UserModel } from "../../data/mongodb";
+import {
+  AccessModel,
+  TrackingPointsModel,
+  UserModel,
+} from "../../data/mongodb";
 import {
   CustomError,
   UpdateUserDto,
@@ -9,11 +13,15 @@ import {
 import { UserMapper } from "../mappers/user.mapper";
 
 export class UserDatasourceImpl implements UserDatasource {
+ 
   async update(updateUserDto: UpdateUserDto): Promise<UserEntity> {
     const { id } = updateUserDto;
 
     try {
-      const user = await UserModel.findByIdAndUpdate({ _id: id },{ $set: updateUserDto });
+      const user = await UserModel.findByIdAndUpdate(
+        { _id: id },
+        { $set: updateUserDto }
+      );
       // console.log("🚀 ~ file: user.datasource.impl.ts:21 ~ UserDatasourceImpl ~ update ~ user:", user)
 
       if (!user) {

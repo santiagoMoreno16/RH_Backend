@@ -20,3 +20,5 @@ npm i dotenv env-var
 
 npm install mongoose
 npm i bcryptjs
+
+docker compose up -d

@@ -17,6 +17,7 @@ export class UserRoutes {
 
     router.post("/", controller.createUser);
     router.put("/", controller.updateUser);
+    router.get("/", controller.getUser);
 
     // router.get("/", [AuthMiddleware.validateJWT], controller.getUser);
 

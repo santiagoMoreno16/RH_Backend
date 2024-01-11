@@ -1,6 +1,13 @@
-import { UpdateUserDto } from './../../domain/dtos/user/update-user.dto';
-import { CreateUser, CustomError, UpdateUser, UserDto, UserRepository } from "../../domain";
+import { UpdateUserDto } from "./../../domain/dtos/user/update-user.dto";
+import {
+  CreateUser,
+  CustomError,
+  UpdateUser,
+  UserDto,
+  UserRepository,
+} from "../../domain";
 import { Response, Request } from "express";
+import { AccessModel, UserModel } from "../../data/mongodb";
 export class UserController {
   constructor(private readonly userRepository: UserRepository) {}
   private handleError = (error: unknown, res: Response) => {
@@ -18,7 +25,7 @@ export class UserController {
 
     new CreateUser(this.userRepository)
       .execute(userDto!)
-      .then( (data) => res.json(data) )
+      .then((data) => res.json(data))
       .catch((error) => this.handleError(error, res));
   };
 
@@ -29,9 +36,25 @@ export class UserController {
 
     new UpdateUser(this.userRepository)
       .execute(updateUserDto!)
-      .then( (data) => res.json(data) )
+      .then((data) => res.json(data))
       .catch((error) => this.handleError(error, res));
   };
 
+  getUser = async (req: Request, res: Response) => {
+    try {
+      const id = req.body.id;
+      const user = await UserModel.findById(id).exec();
 
+      if (!user) {
+        return res.status(404).json({ message: "Error al obtener usuario" });
+      }
+
+      const access = await AccessModel.findOne({ userId: id }).exec();
+
+      res.json({ user, access });
+    } catch (error) {
+      res.status(500).json({ message: "Error interno del servidor" });
+    }
+  };
+  
 }

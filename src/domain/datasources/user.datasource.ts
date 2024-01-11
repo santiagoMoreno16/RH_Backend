@@ -5,7 +5,7 @@ import { UserEntity } from "../entities/user.entity";
 export abstract class UserDatasource {
   abstract create(userDto: UserDto): Promise<UserEntity>;
   abstract update(updateUserDto: UpdateUserDto): Promise<UserEntity>;
-//   abstract update(userDto: UserDto): Promise<UserEntity>;
+  // abstract get(updateUserDto: UpdateUserDto): Promise<UserEntity>;
 //   abstract delete(userDto: UserDto): Promise<UserEntity>;
     
 }
