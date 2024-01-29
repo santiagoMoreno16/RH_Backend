@@ -33,7 +33,7 @@ export class LoginUser implements LoginUserUseCase {
     return {
       token: token,
       user: {
-        id: user.id,
+        id: user.userId,
         email: user.email,
       },
     };
