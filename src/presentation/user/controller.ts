@@ -7,9 +7,11 @@ import {
   UserRepository,
 } from "../../domain";
 import { Response, Request } from "express";
-import { AccessModel, UserModel } from "../../data/mongodb";
+import { UserModel } from "../../data/mongodb";
 export class UserController {
   constructor(private readonly userRepository: UserRepository) {}
+
+  
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ error: error.message });

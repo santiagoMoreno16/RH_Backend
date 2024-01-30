@@ -10,6 +10,7 @@ export class AppRoutes {
 
     router.use('/api/auth', AuthRoutes.routes )
     router.use('/api/user', UserRoutes.routes );
+    router.use('/api/employee', UserRoutes.routes );
 
     return router;
   }

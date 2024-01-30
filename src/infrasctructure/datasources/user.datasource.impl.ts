@@ -1,6 +1,4 @@
 import {
-  AccessModel,
-  TrackingPointsModel,
   UserModel,
 } from "../../data/mongodb";
 import {
