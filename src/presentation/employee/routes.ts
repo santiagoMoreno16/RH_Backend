@@ -9,13 +9,14 @@ export class EmployeeRoutes {
 
     const datasource = new EmployeeDatasourceImpl();
 
-    const authRepository = new EmployeeRepositoryImpl(datasource);
+    const repository = new EmployeeRepositoryImpl(datasource);
 
-    const controller = new EmployeeController(authRepository);
+    const controller = new EmployeeController(repository);
 
     // Define all Employee routes
 
     router.post("/", controller.createEmployee);
+    router.put("/", controller.updateEmployee);
 
     return router;
   }

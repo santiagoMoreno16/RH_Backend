@@ -3,6 +3,7 @@ export * from './dtos/auth/signup-user.dto';
 export * from './dtos/user/create-user.dto';
 export * from './dtos/user/update-user.dto';
 export * from './dtos/employee/create-employee.dto';
+export * from './dtos/employee/update-employee.dto';
 
 export * from './entities/user.entity';
 export * from './entities/access.entity';
@@ -26,3 +27,4 @@ export * from './use-cases/auth/signup-user.use-case'
 export * from './use-cases/user/create-user-use-case'
 export * from './use-cases/user/update-user-use-case'
 export * from './use-cases/employee/create-employee-use-case'
+export * from './use-cases/employee/update-employee-use-case'

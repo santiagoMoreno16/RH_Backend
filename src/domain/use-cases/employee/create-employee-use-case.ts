@@ -3,13 +3,12 @@ import { EmployeeRepository } from "../../repositories/employee.repository";
 
 interface Employee {
   employee: {
-    id: string;
     gender: string;
-    birthdate: string;
+    birthdate: Date;
     numberChildren: string;
-    boss: string;
-    entryIntoCompany: string;
-    humanResources: string;
+    entryIntoCompany: Date;
+    humanResources: boolean;
+    boss: boolean;
     userId: string;
     img?: string;
   };
@@ -27,13 +26,12 @@ export class CreateEmployee implements CreateEmployeeUseCase {
     const employee = await this.employeeRepository.create(employeeDto);
     return {
       employee: {
-        id: employee.id,
         gender: employee.gender,
         birthdate: employee.birthdate,
         numberChildren: employee.numberChildren,
-        boss: employee.boss,
         entryIntoCompany: employee.entryIntoCompany,
         humanResources: employee.humanResources,
+        boss: employee.boss, 
         userId: employee.userId,
         img: employee.img,
       },

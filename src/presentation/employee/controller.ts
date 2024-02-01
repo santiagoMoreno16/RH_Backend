@@ -1,4 +1,4 @@
-import { CreateEmployee, CustomError, EmployeeDto } from "../../domain";
+import { CreateEmployee, CustomError, EmployeeDto, UpdateEmployee, UpdateEmployeeDto } from "../../domain";
 import { EmployeeRepository } from "../../domain/repositories/employee.repository";
 import { Response, Request } from "express";
 
@@ -16,9 +16,21 @@ export class EmployeeController {
     return res.status(500).json({ error: "Internal Server Error" });
   };
 
-  createEmployee = (req: Request, res: Response) => {
-    const [error, employeeDto] = EmployeeDto.create(req.body);
+  updateEmployee= (req: Request, res: Response) => {
+    // console.log(req.body)
+    const [error, updateEmployeeDto] = UpdateEmployeeDto.update(req.body);
     if (error) return res.status(400).json({ error });
+
+    new UpdateEmployee(this.employeeRepository)
+      .execute(updateEmployeeDto!)
+      .then((data) => res.json(data))
+      .catch((error) => this.handleError(error, res));
+  };
+
+  createEmployee = (req: Request, res: Response) => {
+    // console.log(req.body);
+    const [error, employeeDto] = EmployeeDto.create(req.body);
+    if (error) { console.log(error); return res.status(400).json({ error });}
 
     new CreateEmployee(this.employeeRepository)
       .execute(employeeDto!)
