@@ -1,5 +1,3 @@
-import { Validators } from "../../../config";
-
 export class UserDto {
   private constructor(
     public firstName: string,

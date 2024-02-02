@@ -20,7 +20,6 @@ export class UserDatasourceImpl implements UserDatasource {
         { _id: id },
         { $set: updateUserDto }
       );
-      // console.log("🚀 ~ file: user.datasource.impl.ts:21 ~ UserDatasourceImpl ~ update ~ user:", user)
 
       if (!user) {
         throw CustomError.badRequest("Error updating user");

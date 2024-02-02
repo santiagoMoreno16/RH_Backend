@@ -8,8 +8,7 @@ const employeeSchema = new mongoose.Schema({
     humanResources: {type: Boolean, required: [true, "Human resources is required"]},
     boss: {type: Boolean, required: [true, "Boss is required"]},
     userId: { type: Types.ObjectId, ref: "User", required: [true, "User is required"], },
-    // programId: { type: Types.ObjectId, ref: "PersonalProgram", required: [true, "Personal Program is required"], },
-    img: {type: String, required: [true, "Image is required"]},
+    img: {type: String, required: [false, "Image is required"]},
 })
 
 

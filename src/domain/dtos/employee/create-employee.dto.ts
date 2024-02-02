@@ -1,5 +1,3 @@
-import { Validators } from "../../../config";
-
 export class EmployeeDto {
   private constructor(
     public gender: string,
