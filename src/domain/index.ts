@@ -36,6 +36,9 @@ export * from './use-cases/user/create-user.use-case'
 export * from './use-cases/user/update-user.use-case'
 export * from './use-cases/employee/create-employee.use-case'
 export * from './use-cases/employee/update-employee.use-case'
+export * from './use-cases/personalProgram/create-personalProgram.use-case'
 
 
 export * from './dtos/personalProgram/create-personalProgram.dto'
+export * from './datasources/personalProgram.datasource'
+export * from './repositories/personalProgram.repository'

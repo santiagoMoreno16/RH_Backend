@@ -3,6 +3,7 @@ import { AuthRoutes } from "./auth/routes";
 import { UserRoutes } from "./user/routes";
 import { EmployeeRoutes } from "./employee/routes";
 import { CategoryRoutes } from "./category/routes";
+import { PersonalProgramRoutes } from "./personalProgram/routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -14,6 +15,7 @@ export class AppRoutes {
     router.use('/api/user', UserRoutes.routes );
     router.use('/api/employee', EmployeeRoutes.routes );
     router.use('/api/category', CategoryRoutes.routes );
+    router.use('/api/personalprogram', PersonalProgramRoutes.routes );
 
     return router;
   }
