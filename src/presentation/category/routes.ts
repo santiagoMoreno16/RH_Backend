@@ -12,6 +12,7 @@ export class CategoryRoutes {
         const controller = new CategoryController(repository);
 
         router.post("/", controller.createCategory)
+        router.put("/", controller.updateCategory)
 
         return router;
 

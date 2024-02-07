@@ -6,9 +6,9 @@ export class CategoryMapper {
 
     if (!_id || !id) throw CustomError.badRequest("Missing id");
     if (!name) throw CustomError.badRequest("Missing name");
-    if (!status) throw CustomError.badRequest("Missing status");
+    if (status === "" || status === undefined || status === null) throw CustomError.badRequest("Missing status");
     if (!image) throw CustomError.badRequest("Missing image");
 
-    return new CategoryEntity(_id || id, name, status, image)
+    return new CategoryEntity(_id || id, name, status, image);
   }
 }

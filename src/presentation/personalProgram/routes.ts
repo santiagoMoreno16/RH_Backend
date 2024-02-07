@@ -16,6 +16,7 @@ export class PersonalProgramRoutes {
     // Define all routes
 
     router.post("/", controller.createPersonalProgram);
+    router.put("/", controller.updatePersonalProgram);
 
     return router;
   }

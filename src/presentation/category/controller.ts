@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CategoryDto, CategoryRepository, CreateCategory, CustomError } from "../../domain";
+import { CategoryDto, CategoryRepository, CreateCategory, CustomError, UpdateCategory, UpdateCategoryDto } from "../../domain";
 
 export class CategoryController {
   constructor(private readonly categoryRepository: CategoryRepository) {}
@@ -22,4 +22,16 @@ export class CategoryController {
     .then((data)=> res.json(data))
     .catch((error)=> this.handleError(error, res))
   }
+
+  updateCategory = (req: Request, res: Response)=>{
+    const [error, updateCategoryDto] = UpdateCategoryDto.update(req.body);
+    if (error) { console.log(error); return res.status(400).json({ error });}
+
+    new UpdateCategory(this.categoryRepository)
+    .execute(updateCategoryDto!)
+    .then((data)=> res.json(data))
+    .catch((error)=> this.handleError(error, res))
+  }
+
+
 }

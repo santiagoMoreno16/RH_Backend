@@ -13,12 +13,11 @@ export class EmployeeDatasourceImpl implements EmployeeDatasource {
         { $set: updateEmployeeDto }
       ); 
     
-
       if (!employee) {
         throw CustomError.badRequest("Error updating employee");
       }
 
-      return EmployeeMapper.employeeEntityFromObject(employee);
+      return updateEmployeeDto;
     } catch (error) {
       console.log(error);
       if (error instanceof CustomError) {

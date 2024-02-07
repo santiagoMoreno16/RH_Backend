@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreatePersonalProgram, CustomError, PersonalProgramDto, PersonalProgramRepository } from "../../domain";
+import { CreatePersonalProgram, CustomError, PersonalProgramDto, PersonalProgramRepository, UpdatePersonalProgram, UpdatePersonalProgramDto } from "../../domain";
 
 export class PersonalProgramController {
     constructor(private readonly personalProgramRepository: PersonalProgramRepository) {}
@@ -20,6 +20,16 @@ export class PersonalProgramController {
     
         new CreatePersonalProgram(this.personalProgramRepository)
           .execute(personalProgramDto!)
+          .then((data) => res.json(data))
+          .catch((error) => this.handleError(error, res));
+      };
+
+      updatePersonalProgram = (req: Request, res: Response) => {
+        const [error, updatePersonalProgramDto] = UpdatePersonalProgramDto.update(req.body);
+        if (error) return res.status(400).json({ error });
+    
+        new UpdatePersonalProgram(this.personalProgramRepository)
+          .execute(updatePersonalProgramDto!)
           .then((data) => res.json(data))
           .catch((error) => this.handleError(error, res));
       };

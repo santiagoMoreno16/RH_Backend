@@ -30,15 +30,21 @@ export * from './repositories/category.repository'
 
 export * from './use-cases/auth/login-user.use-case'
 export * from './use-cases/auth/signup-user.use-case'
+
 export * from './use-cases/category/create-category.use-case'
+export * from './use-cases/category/update-category.use-case'
+export * from './dtos/category/update-category.dto'
+
 
 export * from './use-cases/user/create-user.use-case'
 export * from './use-cases/user/update-user.use-case'
 export * from './use-cases/employee/create-employee.use-case'
 export * from './use-cases/employee/update-employee.use-case'
+
+
 export * from './use-cases/personalProgram/create-personalProgram.use-case'
-
-
+export * from './use-cases/personalProgram/update-personalProgram.use-case'
 export * from './dtos/personalProgram/create-personalProgram.dto'
+export * from './dtos/personalProgram/update-personalProgram.dto'
 export * from './datasources/personalProgram.datasource'
 export * from './repositories/personalProgram.repository'

@@ -1,4 +1,6 @@
 import {
+  RoleModel,
+  TrackingPointsModel,
   UserModel,
 } from "../../data/mongodb";
 import {
@@ -25,7 +27,7 @@ export class UserDatasourceImpl implements UserDatasource {
         throw CustomError.badRequest("Error updating user");
       }
 
-      return UserMapper.userEntityFromObject(user);
+      return updateUserDto;
     } catch (error) {
       console.log(error);
       if (error instanceof CustomError) {
@@ -58,6 +60,16 @@ export class UserDatasourceImpl implements UserDatasource {
         phone: phone,
       });
 
+      const points = await TrackingPointsModel.create({
+        userId: user.id,
+      })
+
+      const role = await RoleModel.create({
+        userId: user.id,
+      })
+
+      await points.save();
+      await role.save();
       await user.save();
 
       return UserMapper.userEntityFromObject(user);
