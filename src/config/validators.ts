@@ -7,6 +7,10 @@ export class Validators {
     return /^\+57[0-9]{10}$/;
   }
 
+  static get internationalPhoneNumber() {
+    return /^\+(?:[0-9] ?){6,14}[0-9]$/;
+  }
+
   static get numericOnly() {
     return /^[0-9]+$/;
   }

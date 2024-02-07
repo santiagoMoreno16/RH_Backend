@@ -10,7 +10,7 @@ export class LoginUserDto {
     if (!Validators.email.test(email)) return ["Invalid email"];
 
     if (!password) return ["Missing password"];
-    if (password.length < 8) return ["Password too short"];
+    if (Validators.password.test(password)) return ["The password must be at least 8 characters long, including at least one lowercase letter, one uppercase letter, and one number."];
 
     return [undefined, new LoginUserDto(email, password)];
   }

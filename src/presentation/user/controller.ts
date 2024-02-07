@@ -48,7 +48,7 @@ export class UserController {
       const user = await UserModel.findById(id).exec();
 
       if (!user) {
-        return res.status(404).json({ message: "Error al obtener usuario" });
+        return res.status(400).json({ message: "Error al obtener usuario" });
       }
 
       // const access = await AccessModel.findOne({ userId: id }).select('-_id -password').exec();
@@ -57,6 +57,40 @@ export class UserController {
       res.json({ user });
     } catch (error) {
       res.status(500).json({ message: "Error interno del servidor" });
+    }
+  };
+
+  getUserById = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const user = await this.userRepository.findById(id);
+
+      if (!user) {
+        return res.status(400).json({ message: "User not found" });
+      }
+
+      res.json({ user });
+    } catch (error) {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
+
+  getAllUsers = async (req: Request, res: Response) => {
+    try {
+      const users = await this.userRepository.findAll();
+      res.json({ users });
+    } catch (error) {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
+
+  deleteUser = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      await this.userRepository.delete(id);
+      res.json({ message: "User deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Internal Server Error" });
     }
   };
   

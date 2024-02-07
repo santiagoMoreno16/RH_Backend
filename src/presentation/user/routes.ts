@@ -17,7 +17,10 @@ export class UserRoutes {
 
     router.post("/", controller.createUser);
     router.put("/", controller.updateUser);
-    router.get("/:id", controller.getUser);
+    // router.get("/:id", controller.getUser);
+    router.get("/:id", controller.getUserById); 
+    router.get("/", controller.getAllUsers); 
+    router.delete("/:id", controller.deleteUser);
 
     // router.get("/", [AuthMiddleware.validateJWT], controller.getUser);
 

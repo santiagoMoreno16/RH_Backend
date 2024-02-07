@@ -1,8 +1,4 @@
-import {
-  RoleModel,
-  TrackingPointsModel,
-  UserModel,
-} from "../../data/mongodb";
+import { AccessModel, EmployeeModel, RoleModel, TrackingPointsModel, UserModel } from "../../data/mongodb";
 import {
   CustomError,
   UpdateUserDto,
@@ -13,7 +9,50 @@ import {
 import { UserMapper } from "../mappers/user.mapper";
 
 export class UserDatasourceImpl implements UserDatasource {
- 
+  async findById(id: string): Promise<UserEntity | null> {
+    try {
+      const user = await UserModel.findById(id).exec();
+      return user ? UserMapper.userEntityFromObject(user) : null;
+    } catch (error) {
+      console.log(error);
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+  }
+
+  async findAll(): Promise<UserEntity[]> {
+    try {
+      const users = await UserModel.find().exec();
+      return users.map(UserMapper.userEntityFromObject);
+    } catch (error) {
+      console.log(error);
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+  }
+
+  async delete(id: string): Promise<void> {
+    try {
+
+      await UserModel.findByIdAndDelete(id).exec();
+      await TrackingPointsModel.deleteMany({ userId: id }).exec();
+      await RoleModel.deleteMany({ userId: id }).exec();
+      await EmployeeModel.deleteMany({ userId: id }).exec();
+      await AccessModel.deleteMany({ userId: id }).exec();
+
+    } catch (error) {
+      console.log(error);
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+  }
+
   async update(updateUserDto: UpdateUserDto): Promise<UserEntity> {
     const { id } = updateUserDto;
 
@@ -62,11 +101,11 @@ export class UserDatasourceImpl implements UserDatasource {
 
       const points = await TrackingPointsModel.create({
         userId: user.id,
-      })
+      });
 
       const role = await RoleModel.create({
         userId: user.id,
-      })
+      });
 
       await points.save();
       await role.save();
