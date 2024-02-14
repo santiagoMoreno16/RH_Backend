@@ -1,13 +1,7 @@
 import { BcryptAdapter } from "./../../config/bcrypt";
 import { AccessModel, UserModel } from "../../data/mongodb";
-import {
-  AccessEntity,
-  CustomError,
-  LoginUserDto,
-  SignupUserDto,
-} from "../../domain";
+import { AccessEntity, CustomError, LoginUserDto, SignupUserDto, UpdateAccessDto, } from "../../domain";
 import { AuthDatasource } from "../../domain/datasources/auth.datasource";
-import { UserMapper } from "../mappers/user.mapper";
 import { AccessMapper } from "../mappers/access.mapper";
 
 type hashFunction = (password: string) => string;
@@ -18,6 +12,33 @@ export class AuthDatasourceImpl implements AuthDatasource {
     private readonly hashPassword: hashFunction = BcryptAdapter.hash,
     private readonly comparePassword: compareFunction = BcryptAdapter.compare
   ) {}
+
+  async update(updateAccessDto: UpdateAccessDto): Promise<AccessEntity> {
+    const {id, email, password, userId} = updateAccessDto;
+
+    try {
+      const exists = await AccessModel.findOne({ userId: userId });
+      if (!exists) throw CustomError.badRequest("Error updating password");
+      
+      const access = await AccessModel.findById({ _id: id });
+      if (!access) throw CustomError.badRequest("Access not found");
+      
+      const hashedPass = this.hashPassword(password);
+      
+        access.password = hashedPass;
+      
+        access.save();
+
+        return updateAccessDto;
+    } catch (error) {
+      console.log(error)
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+
+  }
 
   async signup(signupUserDto: SignupUserDto): Promise<AccessEntity> {
     const {  email, password, userId } = signupUserDto;

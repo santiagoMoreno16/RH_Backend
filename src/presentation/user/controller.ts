@@ -42,24 +42,6 @@ export class UserController {
       .catch((error) => this.handleError(error, res));
   };
 
-  getUser = async (req: Request, res: Response) => {
-    try {
-      const id = req.params.id;
-      const user = await UserModel.findById(id).exec();
-
-      if (!user) {
-        return res.status(400).json({ message: "Error al obtener usuario" });
-      }
-
-      // const access = await AccessModel.findOne({ userId: id }).select('-_id -password').exec();
-
-
-      res.json({ user });
-    } catch (error) {
-      res.status(500).json({ message: "Error interno del servidor" });
-    }
-  };
-
   getUserById = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;

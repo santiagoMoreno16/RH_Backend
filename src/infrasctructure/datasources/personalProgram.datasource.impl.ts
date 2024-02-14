@@ -14,6 +14,11 @@ export class PersonalProgramDatasourceImpl implements PersonalProgramDatasource
     const { id } = updatePersonalProgramDto;
 
     try {
+
+      const exists = await PersonalProgramModel.findOne({ _id: id });
+
+      if (!exists) throw CustomError.badRequest("Personal program not found");
+
       const personalProgram = await PersonalProgramModel.findByIdAndUpdate(
         { _id: id },
         { $set: updatePersonalProgramDto }

@@ -1,5 +1,6 @@
 export * from './dtos/auth/login-user.dto';
 export * from './dtos/auth/signup-user.dto';
+export * from './dtos/auth/update-access.dto';
 
 export * from './dtos/user/create-user.dto';
 export * from './dtos/user/update-user.dto';
@@ -17,6 +18,8 @@ export * from './entities/employee.entity';
 export * from './entities/personalProgram.entity';
 export * from './entities/trackingPoints.entity';
 export * from './entities/role.entity';
+export * from './entities/quiz.entity';
+export * from './entities/module.entity';
 
 export * from './errors/custom.error';
 
@@ -48,3 +51,12 @@ export * from './dtos/personalProgram/create-personalProgram.dto'
 export * from './dtos/personalProgram/update-personalProgram.dto'
 export * from './datasources/personalProgram.datasource'
 export * from './repositories/personalProgram.repository'
+
+
+export * from './interfaces/question.interface'
+
+export * from './datasources/module.datasource'
+export * from './datasources/quiz.datasource'
+export * from './repositories/module.repository'
+export * from './repositories/quiz.repository'
+export * from './use-cases/quiz/create-quiz.use-case'

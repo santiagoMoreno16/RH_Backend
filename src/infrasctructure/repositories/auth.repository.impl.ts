@@ -1,7 +1,11 @@
-import { AccessEntity, AuthDatasource, AuthRepository, LoginUserDto, SignupUserDto, UserEntity, } from "../../domain";
+import { AccessEntity, AuthDatasource, AuthRepository, LoginUserDto, SignupUserDto, UpdateAccessDto, UserEntity, } from "../../domain";
 
 export class AuthRepositoryImpl implements AuthRepository {
   constructor(private readonly authDatasource: AuthDatasource) {}
+
+  update(updateAccessDto: UpdateAccessDto): Promise<AccessEntity> {
+    return this.authDatasource.update(updateAccessDto)
+  }
 
   signup(signupUserDto: SignupUserDto): Promise<AccessEntity> {
     return this.authDatasource.signup(signupUserDto)
