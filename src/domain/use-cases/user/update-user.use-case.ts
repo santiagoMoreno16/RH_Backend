@@ -9,6 +9,7 @@ interface User {
     identificationType: string;
     identificationNum: string;
     phone: string;
+    access_id: string
   };
 }
 
@@ -30,6 +31,7 @@ export class UpdateUser implements UpdateUserUseCase {
         identificationType: user.identificationType,
         identificationNum: user.identificationNum,
         phone: user.phone,
+        access_id: user.access_id
       },
     };
   }

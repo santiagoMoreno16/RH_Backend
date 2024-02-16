@@ -16,7 +16,7 @@ const quizSchema = new mongoose.Schema({
       answer: { type: String, required: true, },
     },
   ],
-  module: {type: Types.ObjectId, ref: 'Module', required: true}
+  module_id: {type: Types.ObjectId, ref: 'Module', required: true}
 });
 
 export const QuizModel = mongoose.model("Quiz", quizSchema);

@@ -7,6 +7,6 @@ export class QuizEntity {
     public image: string,
     public created_by: string,
     public questions: Question[],
-    public moduleId: string
+    public module_id: string
   ) {}
 }

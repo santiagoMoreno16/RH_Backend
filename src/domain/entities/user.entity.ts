@@ -6,6 +6,7 @@ export class UserEntity {
     public identificationType: string,
     public identificationNum: string,
     public phone: string,
+    public access_id: string,
     ) {}
   }
 

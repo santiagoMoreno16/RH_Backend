@@ -3,7 +3,7 @@ export class AccessEntity {
       public id: string,
       public email: string,
       public password: string,
-      public userId: string,
+      public access: string,
     ) {}
   }
   

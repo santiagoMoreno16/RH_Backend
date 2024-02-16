@@ -8,6 +8,7 @@ interface UserToken {
   user: {
     id: string;
     email: string;
+    access: string;
   };
 }
 
@@ -33,8 +34,9 @@ export class LoginUser implements LoginUserUseCase {
     return {
       token: token,
       user: {
-        id: user.userId,
+        id: user.id,
         email: user.email,
+        access: user.access,
       },
     };
   }

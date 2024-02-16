@@ -8,7 +8,7 @@ interface UserToken {
   user: {
     id: string;
     email: string;
-    userId: string;
+    access: string;
   };
 }
 
@@ -37,7 +37,7 @@ export class SignupUser implements SignupUserUseCase {
       user: {
         id: access.id,
         email: access.email,
-        userId: access.userId
+        access: access.access
       },
     };
   }

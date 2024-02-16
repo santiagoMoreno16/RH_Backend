@@ -1,4 +1,4 @@
-export class TrackingPointsEntity {
+export class PointsEntity {
   constructor(
     public pendingApproval: number,
     public pointsForApproval: number,

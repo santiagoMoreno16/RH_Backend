@@ -12,7 +12,7 @@ export class ModuleDatasourceImpl implements ModuleDatasource {
         name: name,
       });
 
-      if (!exists) throw CustomError.badRequest("Error creating module");
+      if (exists) throw CustomError.badRequest("Error creating module");
 
 
       const module = await ModuleModel.create({

@@ -2,7 +2,7 @@ import { CustomError, UserEntity } from "../../domain";
 
 export class UserMapper {
   static userEntityFromObject(object: { [key: string]: any }) {
-    const { id, _id, firstName, lastName, identificationType, identificationNum, phone } = object;
+    const { id, _id, firstName, lastName, identificationType, identificationNum, phone, access_id } = object;
 
     if (!_id || !id) throw CustomError.badRequest("Missing id");
     if (!firstName) throw CustomError.badRequest("Missing first name");
@@ -10,8 +10,9 @@ export class UserMapper {
     if (!identificationType) throw CustomError.badRequest("Missing identification type");
     if (!identificationNum) throw CustomError.badRequest("Missing identification number");
     if (!phone) throw CustomError.badRequest("Missing phone number");
+    if (!access_id) throw CustomError.badRequest("Missing access id");
 
 
-    return new UserEntity(_id || id, firstName, lastName, identificationType, identificationNum, phone );
+    return new UserEntity(_id || id, firstName, lastName, identificationType, identificationNum, phone, access_id );
   }
 }

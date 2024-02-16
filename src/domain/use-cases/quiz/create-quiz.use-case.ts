@@ -8,7 +8,7 @@ interface Quiz {
     image: string;
     created_by: string;
     questions: Question[];
-    module: string;
+    module_id: string;
   };
 }
 
@@ -28,7 +28,7 @@ export class CreateQuiz implements CreateQuizUseCase {
                 image: quiz.image,
                 created_by: quiz.created_by,
                 questions: quiz.questions,
-                module: quiz.moduleId
+                module_id: quiz.module_id
             }
         }
     }

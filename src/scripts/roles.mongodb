@@ -1,7 +1,7 @@
 const basedatos = "points_db";
 use(basedatos);
 
-db.Role.insertMany([
+db.roles.insertMany([
     { name: "Admin", status: 1 },
     { name: "Leader", status: 1 },
     { name: "Manager", status: 1 },

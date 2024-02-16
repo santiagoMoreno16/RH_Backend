@@ -14,10 +14,10 @@ export class AuthDatasourceImpl implements AuthDatasource {
   ) {}
 
   async update(updateAccessDto: UpdateAccessDto): Promise<AccessEntity> {
-    const {id, email, password, userId} = updateAccessDto;
+    const {id, email, password, access} = updateAccessDto;
 
     try {
-      const exists = await AccessModel.findOne({ userId: userId });
+      const exists = await AccessModel.findOne({ email: email });
       if (!exists) throw CustomError.badRequest("Error updating password");
       
       const access = await AccessModel.findById({ _id: id });
@@ -41,21 +41,21 @@ export class AuthDatasourceImpl implements AuthDatasource {
   }
 
   async signup(signupUserDto: SignupUserDto): Promise<AccessEntity> {
-    const {  email, password, userId } = signupUserDto;
+    const {  email, password, access } = signupUserDto;
     try {
       const exists = await AccessModel.findOne({ email: email });
 
       if (exists) throw CustomError.badRequest("Error creating user");
       
-      const access = await AccessModel.create({
+      const auth = await AccessModel.create({
         email: email,
         password: this.hashPassword(password),
-        userId: userId,
+        access: access,
       });
 
-      await access.save();
+      await auth.save();
 
-      return AccessMapper.userEntityFromObject(access);
+      return AccessMapper.accessEntityFromObject(auth);
     } catch (error) {
       console.log(error)
       if (error instanceof CustomError) {
@@ -66,7 +66,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
   }
 
   async login(loginUserDto: LoginUserDto): Promise<AccessEntity> {
-    const { email, password } = loginUserDto;
+    const { email, password, access } = loginUserDto;
 
     try {
       const user = await AccessModel.findOne({ email });
@@ -76,7 +76,9 @@ export class AuthDatasourceImpl implements AuthDatasource {
       const isMatching = this.comparePassword(password, user.password);
       if (!isMatching) throw CustomError.badRequest("Password is not valid");
 
-      return AccessMapper.userEntityFromObject(user);
+      if(user.access != access) throw CustomError.badRequest("Access is not valid")
+
+      return AccessMapper.accessEntityFromObject(user);
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;

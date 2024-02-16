@@ -5,6 +5,8 @@ import { EmployeeRoutes } from "./employee/routes";
 import { CategoryRoutes } from "./category/routes";
 import { PersonalProgramRoutes } from "./personalProgram/routes";
 import { QuizRoutes } from "./quiz/routes";
+import { PointsRoutes } from "./points/routes";
+import { ModuleRoutes } from "./module/routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -18,6 +20,8 @@ export class AppRoutes {
     router.use('/api/category', CategoryRoutes.routes );
     router.use('/api/personalprogram', PersonalProgramRoutes.routes );
     router.use('/api/quiz', QuizRoutes.routes );
+    router.use('/api/points', PointsRoutes.routes );
+    router.use('/api/module', ModuleRoutes.routes );
 
     return router;
   }

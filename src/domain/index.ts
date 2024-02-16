@@ -16,7 +16,7 @@ export * from './entities/category.entity';
 export * from './entities/access.entity';
 export * from './entities/employee.entity';
 export * from './entities/personalProgram.entity';
-export * from './entities/trackingPoints.entity';
+export * from './entities/points.entity';
 export * from './entities/role.entity';
 export * from './entities/quiz.entity';
 export * from './entities/module.entity';
@@ -60,3 +60,5 @@ export * from './datasources/quiz.datasource'
 export * from './repositories/module.repository'
 export * from './repositories/quiz.repository'
 export * from './use-cases/quiz/create-quiz.use-case'
+
+export * from './use-cases/module/create-module.use-case'

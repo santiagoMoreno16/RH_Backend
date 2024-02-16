@@ -1,4 +1,10 @@
-import { AccessModel, EmployeeModel, RoleModel, TrackingPointsModel, UserModel } from "../../data/mongodb";
+import {
+  AccessModel,
+  EmployeeModel,
+  RoleModel,
+  PointsModel,
+  UserModel,
+} from "../../data/mongodb";
 import {
   CustomError,
   UpdateUserDto,
@@ -11,7 +17,8 @@ import { UserMapper } from "../mappers/user.mapper";
 export class UserDatasourceImpl implements UserDatasource {
   async findById(id: string): Promise<UserEntity | null> {
     try {
-      const user = await UserModel.findById(id).exec();
+      const user = await UserModel.findOne({ access_id: id }).exec();
+
       return user ? UserMapper.userEntityFromObject(user) : null;
     } catch (error) {
       console.log(error);
@@ -37,13 +44,11 @@ export class UserDatasourceImpl implements UserDatasource {
 
   async delete(id: string): Promise<void> {
     try {
-
       await UserModel.findByIdAndDelete(id).exec();
-      await TrackingPointsModel.deleteMany({ userId: id }).exec();
+      await PointsModel.deleteMany({ userId: id }).exec();
       await RoleModel.deleteMany({ userId: id }).exec();
       await EmployeeModel.deleteMany({ userId: id }).exec();
       await AccessModel.deleteMany({ userId: id }).exec();
-
     } catch (error) {
       console.log(error);
       if (error instanceof CustomError) {
@@ -83,6 +88,7 @@ export class UserDatasourceImpl implements UserDatasource {
       identificationType,
       identificationNum,
       phone,
+      access_id,
     } = userDto;
 
     try {
@@ -97,18 +103,14 @@ export class UserDatasourceImpl implements UserDatasource {
         identificationType: identificationType,
         identificationNum: identificationNum,
         phone: phone,
+        access_id: access_id,
       });
 
-      const points = await TrackingPointsModel.create({
-        userId: user.id,
-      });
-
-      const role = await RoleModel.create({
+      const points = await PointsModel.create({
         userId: user.id,
       });
 
       await points.save();
-      await role.save();
       await user.save();
 
       return UserMapper.userEntityFromObject(user);
