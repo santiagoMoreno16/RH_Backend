@@ -17,6 +17,7 @@ export class AuthRoutes {
 
     router.post("/login", controller.loginUser);
     router.post("/signup", controller.signupUser);
+    router.post("/validate", controller.validateToken);
 
     // router.get("/", [AuthMiddleware.validateJWT], controller.getUser);
 

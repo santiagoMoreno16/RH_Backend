@@ -1,9 +1,16 @@
 import { Request, Response } from "express";
-import { AuthRepository, CustomError, LoginUser, LoginUserDto, SignupUser, SignupUserDto, } from "../../domain";
+import {
+  AuthRepository,
+  CustomError,
+  LoginUser,
+  LoginUserDto,
+  SignupUser,
+  SignupUserDto,
+} from "../../domain";
 import { UserModel } from "../../data/mongodb";
+import { JwtAdapter } from "../../config";
 
 export class AuthController {
-  
   constructor(private readonly authRepository: AuthRepository) {}
 
   private handleError = (error: unknown, res: Response) => {
@@ -22,7 +29,7 @@ export class AuthController {
 
     new SignupUser(this.authRepository)
       .execute(signupUserDto!)
-      .then( (data) => res.json(data) )
+      .then((data) => res.json(data))
       .catch((error) => this.handleError(error, res));
   };
 
@@ -32,7 +39,7 @@ export class AuthController {
 
     new LoginUser(this.authRepository)
       .execute(loginUserDto!)
-      .then( (data) => res.json(data) )
+      .then((data) => res.json(data))
       .catch((error) => this.handleError(error, res));
   };
 
@@ -44,4 +51,21 @@ export class AuthController {
       .catch(() => res.status(500).json("Internal Server Error"));
   };
 
+  validateToken = async (req: Request, res: Response) => {
+    const token = req.body.token;
+  
+    if (!token) {
+      return res.status(400).json({ message: "No se proporcionó un token" });
+    }
+  
+    try {
+      const decoded = await JwtAdapter.validateToken(token);
+      return res.status(200).json({ valid: true, decoded });
+    } catch (error) {
+      return res
+        .status(401)
+        .json({ valid: false, message: "Token inválido o expirado" });
+    }
+  };
+  
 }

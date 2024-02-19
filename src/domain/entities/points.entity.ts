@@ -1,9 +1,9 @@
 export class PointsEntity {
   constructor(
-    public pendingApproval: number,
-    public pointsForApproval: number,
-    public pendingAdvance: number,
-    public pointsRedemption: number,
+    public strategic: number,
+    public tactical: number,
+    public operational: number,
+    public personal: number,
     public userId: string,
   ) {}
 }

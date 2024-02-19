@@ -2,14 +2,14 @@ import { CustomError, PointsEntity } from "../../domain";
 
 export class PointsMapper {
     static pointsEntityFromObject(object:{[key: string]:any }){
-    const {id, pendingApproval, pointsForApproval, pendingAdvance, pointsRedemption} = object
+    const {id, strategic, tactical, operational, personal} = object
 
     if (!id) throw CustomError.badRequest("Missing id");
-    if (pendingApproval === null || pendingApproval === undefined) throw CustomError.badRequest("Missing pending approval points");
-    if (!pointsForApproval === null || pointsForApproval === undefined) throw CustomError.badRequest("Missing points for approval");
-    if (!pendingAdvance === null || pendingAdvance === undefined) throw CustomError.badRequest("Missing pending advance points");
-    if (!pointsRedemption === null || pointsRedemption === undefined) throw CustomError.badRequest("Missing points redemption");
+    if (strategic === null || strategic === undefined) throw CustomError.badRequest("Missing pending strategic points");
+    if (!tactical === null || tactical === undefined) throw CustomError.badRequest("Missing tactical points");
+    if (!operational === null || operational === undefined) throw CustomError.badRequest("Missing operational points");
+    if (!personal === null || personal === undefined) throw CustomError.badRequest("Missing personal points");
 
-    return new PointsEntity(pendingApproval, pointsForApproval, pendingAdvance, pointsRedemption, id)
+    return new PointsEntity(strategic, tactical, operational, personal, id)
     }
 }
