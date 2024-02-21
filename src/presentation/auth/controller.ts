@@ -7,7 +7,7 @@ import {
   SignupUser,
   SignupUserDto,
 } from "../../domain";
-import { UserModel } from "../../data/mongodb";
+import { AccessModel, UserModel } from "../../data/mongodb";
 import { JwtAdapter } from "../../config";
 
 export class AuthController {
@@ -21,6 +21,23 @@ export class AuthController {
 
     return res.status(500).json({ error: "Internal Server Error" });
   };
+
+  getEmail = (req: Request, res: Response) => {
+    const id = req.params.id;
+
+    AccessModel.findById(id)
+      .then((access) => {
+        if (access) {
+          res.json({ email: access.email });
+        } else {
+          res.status(404).json("Access not found");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json("Internal Server Error");
+      });
+};
 
   signupUser = (req: Request, res: Response) => {
     // Validate the route
@@ -53,11 +70,11 @@ export class AuthController {
 
   validateToken = async (req: Request, res: Response) => {
     const token = req.body.token;
-  
+
     if (!token) {
       return res.status(400).json({ message: "No se proporcionó un token" });
     }
-  
+
     try {
       const decoded = await JwtAdapter.validateToken(token);
       return res.status(200).json({ valid: true, decoded });
@@ -67,5 +84,4 @@ export class AuthController {
         .json({ valid: false, message: "Token inválido o expirado" });
     }
   };
-  
 }
