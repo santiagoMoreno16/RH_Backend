@@ -4,7 +4,10 @@ import { ModuleRepository } from "../../repositories/module.repository";
 interface Module {
   module: {
     name: string;
-    descripion: string;
+    description: string;
+    type: string;
+    assessment: number[];
+    img: string;
   };
 }
 
@@ -20,7 +23,10 @@ export class CreateModule implements CreateModuleUseCase {
     return {
       module: {
         name: module.name,
-        descripion: module.description,
+        description: module.description,
+        type: module.type,
+        assessment: module.assessment,
+       img: module.img,
       },
     };
   }
