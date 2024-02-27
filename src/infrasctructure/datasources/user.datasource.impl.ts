@@ -110,7 +110,12 @@ export class UserDatasourceImpl implements UserDatasource {
         userId: user.id,
       });
 
+      const employee = await EmployeeModel.create({
+        userId: user.id,
+      });
+
       await points.save();
+      await employee.save();
       await user.save();
 
       return UserMapper.userEntityFromObject(user);

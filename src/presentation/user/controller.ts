@@ -7,11 +7,11 @@ import {
   UserRepository,
 } from "../../domain";
 import { Response, Request } from "express";
-import { UserModel } from "../../data/mongodb";
+import { AccessModel, EmployeeModel, PointsModel } from "../../data/mongodb";
+
 export class UserController {
   constructor(private readonly userRepository: UserRepository) {}
 
-  
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError) {
       return res.status(error.statusCode).json({ error: error.message });
@@ -51,7 +51,12 @@ export class UserController {
         return res.status(400).json({ message: "User not found" });
       }
 
-      res.json({ user });
+      const access = await AccessModel.findById({ _id: id }, { password: 0 });
+
+      const employee = await EmployeeModel.findOne({ userId: user.id });
+
+    
+      res.json({ access, user, employee });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
     }
@@ -75,5 +80,6 @@ export class UserController {
       res.status(500).json({ message: "Internal Server Error" });
     }
   };
+
   
 }
