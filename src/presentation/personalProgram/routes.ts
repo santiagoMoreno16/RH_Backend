@@ -17,6 +17,7 @@ export class PersonalProgramRoutes {
 
     router.post("/", controller.createPersonalProgram);
     router.put("/", controller.updatePersonalProgram);
+    router.get("/:id", controller.getProgramsByUserId);
 
     return router;
   }

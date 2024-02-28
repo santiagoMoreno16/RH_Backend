@@ -10,6 +10,20 @@ import { PersonalProgramMapper } from '../mappers/personalProgram.mapper';
 
 export class PersonalProgramDatasourceImpl implements PersonalProgramDatasource
 {
+
+  async findByUserId(id: string): Promise<PersonalProgramEntity[] | null> {
+    try {
+      const programs = await PersonalProgramModel.find({ userId: id }).populate("categoryId").exec();
+
+      return programs.map(PersonalProgramMapper.personalProgramEntityFromObject);
+    } catch (error) {
+      console.log(error);
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+  }
   async update(updatePersonalProgramDto: UpdatePersonalProgramDto): Promise<PersonalProgramEntity> {
     const { id } = updatePersonalProgramDto;
 
@@ -40,17 +54,16 @@ export class PersonalProgramDatasourceImpl implements PersonalProgramDatasource
 
   }
   async create( personalProgramDto: PersonalProgramDto ): Promise<PersonalProgramEntity> {
-    const { code, name, status, type, expirationDate, month, employeeId, categoryId } = personalProgramDto;
+    const { code, name, status, description, requirement, userId, categoryId } = personalProgramDto;
 
     try {
         const pProgram = await PersonalProgramModel.create({
             code: code, 
             name: name,
             status: status,
-            type: type,
-            expirationDate: expirationDate,
-            month: month,
-            employeeId: employeeId,
+            description: description,
+            requirement: requirement,
+            userId: userId,
             categoryId: categoryId
         })
 

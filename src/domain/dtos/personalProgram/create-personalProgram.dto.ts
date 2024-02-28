@@ -3,29 +3,27 @@ export class PersonalProgramDto {
     public code: string,
     public name: string,
     public status: boolean,
-    public type: string,
-    public expirationDate: Date,
-    public month: Date,
-    public employeeId: string,
+    public description: string,
+    public requirement: Number,
+    public userId: string,
     public categoryId: string
   ) {}
 
 
   static create(object: {[key: string]: any}): [string?, PersonalProgramDto?]{
 
-    const {code, name, status, type, expirationDate, month, employeeId, categoryId} = object
+    const {code, name, status, description, requirement, userId, categoryId} = object
 
     if (!code) return ["Missing code"];
     if (!name) return ["Missing name"];
     if (!status) return ["Missing status"];
-    if (!type) return ["Missing type"];
-    if (!expirationDate) return ["Missing expirationDate"];
-    if (!month) return ["Missing month"];
-    if (!employeeId) return ["Missing employee id"];
+    if (!description) return ["Missing description"];
+    if (!requirement) return ["Missing requirement"];
+    if (!userId) return ["Missing user id"];
     if (!categoryId) return ["Missing category id"];
 
 
-    return [undefined, new PersonalProgramDto(code, name, status, type, expirationDate, month, employeeId, categoryId)]
+    return [undefined, new PersonalProgramDto(code, name, status, description, requirement, userId, categoryId)]
   }
 
 }

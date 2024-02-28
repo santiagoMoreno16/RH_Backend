@@ -6,10 +6,9 @@ interface PersonalProgram {
     code: string;
     name: string;
     status: boolean;
-    type: string;
-    expirationDate: Date;
-    month: Date;
-    employeeId: string;
+    description: String;
+    requirement: Number;
+    userId: string;
     categoryId: string;
   };
 }
@@ -31,10 +30,9 @@ export class UpdatePersonalProgram implements UpdatePersonalProgramUseCase {
         code: personalProgram.code,
         name: personalProgram.name,
         status: personalProgram.status,
-        type: personalProgram.type,
-        expirationDate: personalProgram.expirationDate,
-        month: personalProgram.month,
-        employeeId: personalProgram.employeeId,
+        description: personalProgram.description,
+        requirement: personalProgram.requirement,
+        userId: personalProgram.userId,
         categoryId: personalProgram.categoryId,
       },
     };

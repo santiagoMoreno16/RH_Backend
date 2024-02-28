@@ -4,10 +4,9 @@ export class PersonalProgramEntity {
     public code: string,
     public name: string,
     public status: boolean,
-    public type: string,
-    public expirationDate: Date,
-    public month: Date,
-    public employeeId: string,
+    public description: string,
+    public requirement: Number,
+    public userId: string,
     public categoryId: string
   ) {}
 }
