@@ -23,4 +23,4 @@ npm i bcryptjs
 
 docker compose up -d
 
-testing
+testing v2
