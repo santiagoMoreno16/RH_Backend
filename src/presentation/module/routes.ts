@@ -14,6 +14,7 @@ export class ModuleRoutes {
       const controller = new ModuleController(repository);
   
       router.post("/", controller.createModule);
+      router.get("/", controller.getAllModules);
   
       
       return router;

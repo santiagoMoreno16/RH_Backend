@@ -44,7 +44,8 @@ export class UserDatasourceImpl implements UserDatasource {
 
   async delete(id: string): Promise<void> {
     try {
-      await UserModel.findByIdAndDelete(id).exec();
+      console.log(`deleting ${id}`);
+      await UserModel.findOneAndDelete({_id: id}).exec();
       await PointsModel.deleteMany({ userId: id }).exec();
       await RoleModel.deleteMany({ userId: id }).exec();
       await EmployeeModel.deleteMany({ userId: id }).exec();

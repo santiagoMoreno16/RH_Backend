@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { CreateModule, CustomError, ModuleRepository } from "../../domain";
+import { CreateModule, CustomError, GetAllModules, ModuleRepository } from "../../domain";
 import { ModuleDto } from "../../domain/dtos/quizModule/create-module.dto";
 
 export class ModuleController {
@@ -23,4 +23,12 @@ export class ModuleController {
       .then((data) => res.json(data))
       .catch((error) => this.handleError(error, res));
   };
+
+  getAllModules = (req: Request, res: Response) => {
+    new GetAllModules(this.moduleRepository)
+      .execute()
+      .then((modules) => res.json(modules))
+      .catch((error) => this.handleError(error, res));
+  };
+
 }

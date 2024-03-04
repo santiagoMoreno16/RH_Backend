@@ -57,6 +57,13 @@ export class PersonalProgramDatasourceImpl implements PersonalProgramDatasource
     const { code, name, status, description, requirement, userId, categoryId } = personalProgramDto;
 
     try {
+
+      const count = await PersonalProgramModel.countDocuments({ userId: userId });
+
+      if (count >= 3) {
+        throw CustomError.badRequest('Max number of personal programs exceeded');
+    }
+
         const pProgram = await PersonalProgramModel.create({
             code: code, 
             name: name,

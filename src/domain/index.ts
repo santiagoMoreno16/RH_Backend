@@ -20,6 +20,7 @@ export * from './entities/points.entity';
 export * from './entities/role.entity';
 export * from './entities/quiz.entity';
 export * from './entities/module.entity';
+export * from './entities/user-course.entity';
 
 export * from './errors/custom.error';
 
@@ -40,7 +41,8 @@ export * from './dtos/category/update-category.dto'
 
 
 export * from './use-cases/user/create-user.use-case'
-export * from './use-cases/user/update-user.use-case'
+export * from './use-cases/user/create-user.use-case'
+export * from './use-cases/user/user.use-case'
 export * from './use-cases/employee/create-employee.use-case'
 export * from './use-cases/employee/update-employee.use-case'
 
@@ -54,6 +56,7 @@ export * from './repositories/personalProgram.repository'
 
 
 export * from './interfaces/question.interface'
+export * from './interfaces/course.interface'
 
 export * from './datasources/module.datasource'
 export * from './datasources/quiz.datasource'
@@ -62,3 +65,9 @@ export * from './repositories/quiz.repository'
 export * from './use-cases/quiz/create-quiz.use-case'
 
 export * from './use-cases/module/create-module.use-case'
+export * from './use-cases/module/all-module.use-case'
+
+
+export * from './datasources/user-course.datasource'
+export * from './repositories/user-course.repository'
+export * from './use-cases/user-course/create-user-course.use-case'

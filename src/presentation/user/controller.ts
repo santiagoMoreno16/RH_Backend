@@ -1,13 +1,13 @@
 import { UpdateUserDto } from "./../../domain/dtos/user/update-user.dto";
-import {
-  CreateUser,
-  CustomError,
-  UpdateUser,
-  UserDto,
-  UserRepository,
-} from "../../domain";
+import { CreateUser, CustomError, UserDto, UserRepository } from "../../domain";
 import { Response, Request } from "express";
 import { AccessModel, EmployeeModel, PointsModel } from "../../data/mongodb";
+import {
+  DeleteUser,
+  FindUserById,
+  GetAllUsers,
+} from "../../domain/use-cases/user/user.use-case";
+import { UpdateUser } from "../../domain/use-cases/user/update-user.use-case";
 
 export class UserController {
   constructor(private readonly userRepository: UserRepository) {}
@@ -44,42 +44,34 @@ export class UserController {
 
   getUserById = async (req: Request, res: Response) => {
     try {
-      const id = req.params.id;
-      const user = await this.userRepository.findById(id);
+        const id = req.params.id;
+        const user = await new FindUserById(this.userRepository).execute(id);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
-      if (!user) {
-        return res.status(400).json({ message: "User not found" });
-      }
+        const access = await AccessModel.findById({ _id: id }, { password: 0 });
+        const employee = await EmployeeModel.findOne({ userId: user.id });
 
-      const access = await AccessModel.findById({ _id: id }, { password: 0 });
-
-      const employee = await EmployeeModel.findOne({ userId: user.id });
-
-    
-      res.json({ access, user, employee });
+        res.json({ access, user, employee });
     } catch (error) {
-      res.status(500).json({ message: "Internal Server Error" });
+        this.handleError(error, res);
     }
-  };
+};
+
 
   getAllUsers = (req: Request, res: Response) => {
-    try {
-      const users = this.userRepository.findAll();
-      res.json({ users });
-    } catch (error) {
-      res.status(500).json({ message: "Internal Server Error" });
-    }
+    new GetAllUsers(this.userRepository)
+      .execute()
+      .then((users) => res.json(users))
+      .catch((error) => this.handleError(error, res));
   };
 
   deleteUser = (req: Request, res: Response) => {
-    try {
-      const id = req.params.id;
-      this.userRepository.delete(id);
-      res.json({ message: "User deleted successfully" });
-    } catch (error) {
-      res.status(500).json({ message: "Internal Server Error" });
-    }
+    const userId = req.params.id;
+    new DeleteUser(this.userRepository)
+      .execute(userId)
+      .then(() => res.status(204).send())
+      .catch((error) => this.handleError(error, res));
   };
-
-  
 }
