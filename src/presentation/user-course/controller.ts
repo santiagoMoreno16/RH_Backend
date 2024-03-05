@@ -17,6 +17,7 @@ export class UserCourseController {
   createUserCourse = (req: Request, res: Response) => {
     
     const [error, createUserCourseDto] = CreateUserCourseDto.create(req.body);
+    console.log("🚀 ~ UserCourseController ~ req.body:", req.body)
     if (error) return res.status(400).json({ error });
 
     new CreateUserCourse(this.userCourseRepository)
