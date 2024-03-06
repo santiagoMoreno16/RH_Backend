@@ -1,6 +1,12 @@
 import { Response, Request } from "express";
-import { CreateModule, CustomError, GetAllModules, ModuleRepository } from "../../domain";
+import {
+  CreateModule,
+  CustomError,
+  GetAllModules,
+  ModuleRepository,
+} from "../../domain";
 import { ModuleDto } from "../../domain/dtos/quizModule/create-module.dto";
+import { FindCourseById } from "../../domain/use-cases/module/id-module.use-case";
 
 export class ModuleController {
   constructor(private readonly moduleRepository: ModuleRepository) {}
@@ -24,11 +30,26 @@ export class ModuleController {
       .catch((error) => this.handleError(error, res));
   };
 
+  getCourseById = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const course = await new FindCourseById(this.moduleRepository).execute(
+        id
+      );
+      if (!course) {
+        return res.status(404).json({ error: "Course not found" });
+      }
+
+      res.json({ course });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
   getAllModules = (req: Request, res: Response) => {
     new GetAllModules(this.moduleRepository)
       .execute()
       .then((modules) => res.json(modules))
       .catch((error) => this.handleError(error, res));
   };
-
 }

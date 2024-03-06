@@ -15,6 +15,7 @@ export class ModuleRoutes {
   
       router.post("/", controller.createModule);
       router.get("/", controller.getAllModules);
+      router.get("/:id", controller.getCourseById);
   
       
       return router;

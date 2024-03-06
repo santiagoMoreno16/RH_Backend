@@ -37,7 +37,6 @@ export class UserCourseDatasourceImpl implements UserCourseDatasource {
 
       return UserCourseMapper.userCourseEntityFromObject(newUserCourse || userCourse);
     } catch (error) {
-      console.log(error);
       if (error instanceof CustomError) {
         throw error;
       }

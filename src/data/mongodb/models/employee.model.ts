@@ -1,9 +1,9 @@
 import mongoose, { Types } from "mongoose";
 
 const employeeSchema = new mongoose.Schema({
-    gender: {type: String, default:'', required: [true, "Gender is required"]},
+    gender: {type: String, default:' ', required: [true, "Gender is required"]},
     birthdate: {type: Date, default: 0, required: [true, "Birthdate is required"]},
-    numberChildren: {type: String, default:'', required: [true, "Number of children is required"]},
+    numberChildren: {type: String, default:' ', required: [true, "Number of children is required"]},
     entryIntoCompany: {type: Date, default: 0, required: [true, "Entry into Company is required"]},
     humanResources: {type: Boolean, default: false, required: [true, "Human resources is required"]},
     boss: {type: Boolean, default: false, required: [true, "Boss is required"]},

@@ -4,4 +4,5 @@ import { ModuleEntity } from "../entities/module.entity";
 export abstract class ModuleRepository {
   abstract create(moduleDto: ModuleDto): Promise<ModuleEntity>;
   abstract findAll(): Promise<ModuleEntity[]>;
+  abstract findById(id: string): Promise<ModuleEntity | null>;
 }

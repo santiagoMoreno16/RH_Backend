@@ -1,28 +1,16 @@
-import { ModuleModel } from "../../../data/mongodb";
+import { ModuleI } from "../../interfaces/course.interface";
 import { ModuleRepository } from "../../repositories/module.repository";
 
-interface Module {
-  _id: string;
-  name: string;
-  description: string;
-  labels: string[];
-  type: string;
-  assessment?: number[];
-  modality: string;
-  duration: number;
-  deadline: Date;
-  created_by: string;
-  img: string;
-}
+
 
 interface GetAllModulesUseCase {
-  execute(): Promise<Module[]>;
+  execute(): Promise<ModuleI[]>;
 }
 
 export class GetAllModules implements GetAllModulesUseCase {
   constructor(private readonly moduleRepository: ModuleRepository) {}
 
-  async execute(): Promise<Module[]> {
+  async execute(): Promise<ModuleI[]> {
     const modules = await this.moduleRepository.findAll();
     return modules.map((module) => ({
       _id: module.id,

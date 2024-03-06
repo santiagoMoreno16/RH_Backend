@@ -4,7 +4,18 @@ import { ModuleDto } from "../../domain/dtos/quizModule/create-module.dto";
 import { ModuleMapper } from "../mappers/module.mapper";
 
 export class ModuleDatasourceImpl implements ModuleDatasource {
-
+  async findById(id: string): Promise<ModuleEntity | null> {
+    try {
+      const course = await ModuleModel.findById({ _id: id }).exec();
+      return course ? ModuleMapper.moduleEntityFromObject(course) : null;
+    } catch (error) {
+      console.log(error);
+      if (error instanceof CustomError) {
+        throw error;
+      }
+      throw CustomError.internalServer();
+    }
+  }
 
   async findAll(): Promise<ModuleEntity[]> {
     try {
@@ -19,7 +30,17 @@ export class ModuleDatasourceImpl implements ModuleDatasource {
     }
   }
   async create(moduleDto: ModuleDto): Promise<ModuleEntity> {
-    const { name, description, labels, type, modality, duration, deadline, created_by, img} = moduleDto;
+    const {
+      name,
+      description,
+      labels,
+      type,
+      modality,
+      duration,
+      deadline,
+      created_by,
+      img,
+    } = moduleDto;
 
     try {
       const exists = await ModuleModel.findOne({
@@ -27,7 +48,6 @@ export class ModuleDatasourceImpl implements ModuleDatasource {
       });
 
       if (exists) throw CustomError.badRequest("Error creating module");
-
 
       const module = await ModuleModel.create({
         name: name,
