@@ -7,8 +7,9 @@ interface Employee {
     birthdate: Date;
     numberChildren: string;
     entryIntoCompany: Date;
-    humanResources: boolean;
-    boss: boolean;
+    enterprise: string;
+    city: number;
+    corporatePosition: string;
     userId: string;
     img?: string;
   };
@@ -30,8 +31,9 @@ export class CreateEmployee implements CreateEmployeeUseCase {
         birthdate: employee.birthdate,
         numberChildren: employee.numberChildren,
         entryIntoCompany: employee.entryIntoCompany,
-        humanResources: employee.humanResources,
-        boss: employee.boss, 
+        enterprise: employee.enterprise, 
+        city: employee.city,
+        corporatePosition: employee.corporatePosition,
         userId: employee.userId,
         img: employee.img,
       },

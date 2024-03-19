@@ -28,7 +28,7 @@ export class EmployeeDatasourceImpl implements EmployeeDatasource {
   }
 
   async create(employeeDto: EmployeeDto): Promise<EmployeeEntity> {
-    const { gender, birthdate, numberChildren, entryIntoCompany, humanResources,boss, userId, img } = employeeDto
+    const { gender, birthdate, numberChildren, entryIntoCompany, enterprise, city, corporatePosition, userId, img } = employeeDto
 
     try {
         const exists = await EmployeeModel.findOne({
@@ -41,8 +41,9 @@ export class EmployeeDatasourceImpl implements EmployeeDatasource {
             birthdate: birthdate,
             numberChildren: numberChildren,
             entryIntoCompany: entryIntoCompany,
-            humanResources: humanResources,
-            boss: boss,
+            enterprise: enterprise,
+            city: city,
+            corporatePosition: corporatePosition,
             userId: userId,
             img: img,
         });

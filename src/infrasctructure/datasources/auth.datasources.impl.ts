@@ -71,12 +71,12 @@ export class AuthDatasourceImpl implements AuthDatasource {
     try {
       const user = await AccessModel.findOne({ email });
 
-      if (!user) throw CustomError.badRequest("User does not exist");
+      if (!user) throw CustomError.badRequest("Autenticación incorrecta");
 
       const isMatching = this.comparePassword(password, user.password);
-      if (!isMatching) throw CustomError.badRequest("Password is not valid");
+      if (!isMatching) throw CustomError.badRequest("Autenticación incorrecta");
 
-      if(user.access != access) throw CustomError.badRequest("Access is not valid")
+      if(user.access != access) throw CustomError.badRequest("Autenticación incorrecta")
 
       return AccessMapper.accessEntityFromObject(user);
     } catch (error) {

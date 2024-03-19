@@ -30,6 +30,7 @@ export class EmployeeController {
   createEmployee = (req: Request, res: Response) => {
     // console.log(req.body);
     const [error, employeeDto] = EmployeeDto.create(req.body);
+    console.log("🚀 ~ EmployeeController ~ req.body:", req.body)
     if (error) { console.log(error); return res.status(400).json({ error });}
 
     new CreateEmployee(this.employeeRepository)

@@ -1,7 +1,8 @@
+import { Globals } from "../../config";
 import {
   AccessModel,
+  AdminPointsModel,
   EmployeeModel,
-  RoleModel,
   PointsModel,
   UserModel,
 } from "../../data/mongodb";
@@ -44,10 +45,9 @@ export class UserDatasourceImpl implements UserDatasource {
 
   async delete(id: string): Promise<void> {
     try {
-      console.log(`deleting ${id}`);
-      await UserModel.findOneAndDelete({_id: id}).exec();
+      await UserModel.findOneAndDelete({ _id: id }).exec();
       await PointsModel.deleteMany({ userId: id }).exec();
-      await RoleModel.deleteMany({ userId: id }).exec();
+      await AdminPointsModel.deleteMany({ userId: id }).exec();
       await EmployeeModel.deleteMany({ userId: id }).exec();
       await AccessModel.deleteMany({ userId: id }).exec();
     } catch (error) {
@@ -118,6 +118,14 @@ export class UserDatasourceImpl implements UserDatasource {
       await points.save();
       await employee.save();
       await user.save();
+
+      const access = await AccessModel.findOne({ _id: user.access_id });
+
+      if (access?.access === Globals.company) {
+        const adminPoints = await AdminPointsModel.create({ userId: user.id });
+        await adminPoints.save();
+      }
+
 
       return UserMapper.userEntityFromObject(user);
     } catch (error) {

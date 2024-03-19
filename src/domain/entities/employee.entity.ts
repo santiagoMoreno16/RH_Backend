@@ -5,8 +5,9 @@ export class EmployeeEntity {
     public birthdate: Date,
     public numberChildren: string,
     public entryIntoCompany: Date,
-    public humanResources: boolean,
-    public boss: boolean,
+    public enterprise: string,
+    public city: number,
+    public corporatePosition: string,
     public userId: string,
     public img?: string
   ) {}

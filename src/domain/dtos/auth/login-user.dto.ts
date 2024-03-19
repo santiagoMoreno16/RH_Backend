@@ -7,10 +7,10 @@ export class LoginUserDto {
     const { email, password, access } = object;
 
     if (!access) return ["Missing access"];
-    if (!email) return ["Missing email"];
-    if (!Validators.email.test(email)) return ["Invalid email"];
+    if (!email) return ["Ingresa un correo electrónico"];
+    if (!Validators.email.test(email)) return ["Correo Inválido"];
 
-    if (!password) return ["Missing password"];
+    if (!password) return ["Ingresa una contraseña"];
     if (Validators.password.test(password)) return ["The password must be at least 8 characters long, including at least one lowercase letter, one uppercase letter, and one number."];
 
     return [undefined, new LoginUserDto(email, password, access)];

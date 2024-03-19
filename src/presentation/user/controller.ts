@@ -1,7 +1,12 @@
 import { UpdateUserDto } from "./../../domain/dtos/user/update-user.dto";
 import { CreateUser, CustomError, UserDto, UserRepository } from "../../domain";
 import { Response, Request } from "express";
-import { AccessModel, EmployeeModel, PointsModel } from "../../data/mongodb";
+import {
+  AccessModel,
+  CityModel,
+  EmployeeModel,
+  PointsModel,
+} from "../../data/mongodb";
 import {
   DeleteUser,
   FindUserById,
@@ -44,21 +49,25 @@ export class UserController {
 
   getUserById = async (req: Request, res: Response) => {
     try {
-        const id = req.params.id;
-        const user = await new FindUserById(this.userRepository).execute(id);
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
+      const id = req.params.id;
+      const user = await new FindUserById(this.userRepository).execute(id);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
 
-        const access = await AccessModel.findById({ _id: id }, { password: 0 });
-        const employee = await EmployeeModel.findOne({ userId: user.id });
+      const access = await AccessModel.findById({ _id: id }, { password: 0 });
+      const employee = await EmployeeModel.findOne({ userId: user.id });
 
-        res.json({ access, user, employee });
+      if (employee) {
+        const city = await CityModel.findOne({ id: employee.city });
+        if (city) employee.city = city.name;
+      }
+
+      res.json({ access, user, employee });
     } catch (error) {
-        this.handleError(error, res);
+      this.handleError(error, res);
     }
-};
-
+  };
 
   getAllUsers = (req: Request, res: Response) => {
     new GetAllUsers(this.userRepository)
