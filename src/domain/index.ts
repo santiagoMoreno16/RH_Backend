@@ -65,9 +65,18 @@ export * from './repositories/quiz.repository'
 export * from './use-cases/quiz/create-quiz.use-case'
 
 export * from './use-cases/module/create-module.use-case'
-export * from './use-cases/module/all-module.use-case'
+export * from './use-cases/module/module.use-case'
 
 
 export * from './datasources/user-course.datasource'
 export * from './repositories/user-course.repository'
 export * from './use-cases/user-course/create-user-course.use-case'
+
+export * from './entities/project.entity'
+export * from './datasources/project.datasource'
+export * from './repositories/project.repository'
+export * from './dtos/project/create-project.dto'
+export * from './dtos/project/update-project.dto'
+export * from './use-cases/project/create-project.use-case'
+export * from './use-cases/project/update-project.use-case'
+export * from './use-cases/project/project.use-case'

@@ -14,8 +14,17 @@ interface ModuleI {
   modality: string;
   duration: number;
   deadline: Date;
-  created_by: string;
-  img: string;
+  created_by: Created_by;
+  base64: string,
+  imgpriv: string,
+  imgpublic: string,
 }
 
-export { Courses, ModuleI };
+interface Created_by {
+  teacher_id: string;
+  description: string;
+  slogan: string;
+  img: string
+}
+
+export { Courses, ModuleI, Created_by };

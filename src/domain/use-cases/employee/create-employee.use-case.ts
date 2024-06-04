@@ -11,7 +11,9 @@ interface Employee {
     city: number;
     corporatePosition: string;
     userId: string;
-    img?: string;
+    base64: string,
+    imgpriv: string,
+    imgpublic: string,
   };
 }
 
@@ -35,7 +37,9 @@ export class CreateEmployee implements CreateEmployeeUseCase {
         city: employee.city,
         corporatePosition: employee.corporatePosition,
         userId: employee.userId,
-        img: employee.img,
+        base64: employee.base64,
+        imgpriv: employee.imgpriv,
+        imgpublic: employee.imgpublic,
       },
     };
   }

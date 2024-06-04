@@ -1,3 +1,4 @@
+import { Created_by } from "../interfaces/course.interface";
 
 export class ModuleEntity {
   constructor(
@@ -10,7 +11,9 @@ export class ModuleEntity {
     public modality: string,
     public duration: number,
     public deadline: Date,
-    public created_by: string,
-    public img: string,
+    public created_by: Created_by,
+    public base64: string,
+    public imgpriv: string,
+    public imgpublic: string,
   ) {}
 }

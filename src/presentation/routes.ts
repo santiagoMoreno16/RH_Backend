@@ -8,6 +8,7 @@ import { QuizRoutes } from "./quiz/routes";
 import { PointsRoutes } from "./points/routes";
 import { ModuleRoutes } from "./module/routes";
 import { UserCourseRoutes } from "./user-course/routes";
+import { ProjectRoutes } from "./project/routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -21,6 +22,7 @@ export class AppRoutes {
     router.use('/api/category', CategoryRoutes.routes );
     router.use('/api/personalprogram', PersonalProgramRoutes.routes );
     router.use('/api/quiz', QuizRoutes.routes );
+    router.use('/api/project', ProjectRoutes.routes );
     router.use('/api/points', PointsRoutes.routes );
     router.use('/api/module', ModuleRoutes.routes );
     router.use('/api/usercourse', UserCourseRoutes.routes );

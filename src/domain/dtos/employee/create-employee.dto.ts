@@ -8,11 +8,13 @@ export class EmployeeDto {
     public city: number,
     public corporatePosition: string,
     public userId: string,
-    public img?: string
+    public base64: string,
+    public imgpriv: string,
+    public imgpublic: string,
   ) {}
 
   static create(object: { [key: string]: any }): [string?, EmployeeDto?] {
-    const { gender, birthdate, numberChildren, entryIntoCompany, enterprise, city, corporatePosition, userId, img } = object;
+    const { gender, birthdate, numberChildren, entryIntoCompany, enterprise, city, corporatePosition, userId, base64, imgpriv, imgpublic } = object;
 
     if (!gender) return ["Missing gender"];
     if (!birthdate) return ["Missing birthdate"];
@@ -21,7 +23,10 @@ export class EmployeeDto {
     if (!enterprise) return ["Missing enterprise"];
     if (!corporatePosition) return ["Missing entry corporate position"];
     if (!userId) return ["Missing user id"];
+    if (!base64) return ["Missing base64"];
+    if (!imgpriv) return ["Missing imgpriv"];
+    if (!imgpublic) return ["Missing imgpublic"];
 
-    return [ undefined, new EmployeeDto( gender, birthdate, numberChildren, entryIntoCompany, enterprise, city, corporatePosition, userId, img), ];
+    return [ undefined, new EmployeeDto( gender, birthdate, numberChildren, entryIntoCompany, enterprise, city, corporatePosition, userId, base64, imgpriv, imgpublic), ];
   }
 }

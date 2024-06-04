@@ -9,8 +9,19 @@ const moduleSchema = new mongoose.Schema({
   modality: { type: String, enum: ["Virtual", "Presencial"], required: true },
   duration: { type: Number, required: true },
   deadline: { type: Date, required: true },
-  created_by: { type: Types.ObjectId, ref: "User", required: true },
-  img: { type: String, required: true },
+  //created_by: { type: Types.ObjectId, ref: "User", required: true },
+  created_by: [
+    {
+      teacher_id: { type: Types.ObjectId, ref: "User", required: true, },
+      description: { type: String, required: true, },
+      slogan: { type: String, required: true, },
+      img: {type:String, required: true,}
+    },
+  ],
+
+  base64: { type: String, required: true },
+  imgpriv: { type: String, required: true },
+  imgpublic: { type: String, required: true },
 });
 
 export const ModuleModel = mongoose.model("Module", moduleSchema);

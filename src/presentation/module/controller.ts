@@ -2,11 +2,14 @@ import { Response, Request } from "express";
 import {
   CreateModule,
   CustomError,
+  DeleteModule,
   GetAllModules,
   ModuleRepository,
 } from "../../domain";
 import { ModuleDto } from "../../domain/dtos/quizModule/create-module.dto";
 import { FindCourseById } from "../../domain/use-cases/module/id-module.use-case";
+import { UpdateModuleDto } from "../../domain/dtos/quizModule/update-module.dto";
+import { UpdateModule } from "../../domain/use-cases/module/update-module.use-case";
 
 export class ModuleController {
   constructor(private readonly moduleRepository: ModuleRepository) {}
@@ -21,6 +24,8 @@ export class ModuleController {
   };
 
   createModule = (req: Request, res: Response) => {
+    //console.log(req.body);
+    
     const [error, moduleDto] = ModuleDto.create(req.body);
     if (error) return res.status(400).json({ error });
 
@@ -50,6 +55,25 @@ export class ModuleController {
     new GetAllModules(this.moduleRepository)
       .execute()
       .then((modules) => res.json(modules))
+      .catch((error) => this.handleError(error, res));
+  };
+
+  updateModule= (req: Request, res: Response) => {
+    // console.log(req.body)
+    const [error, updateModuleDto] = UpdateModuleDto.update(req.body);
+    if (error) return res.status(400).json({ error });
+
+    new UpdateModule(this.moduleRepository)
+      .execute(updateModuleDto!)
+      .then((data) => res.json(data))
+      .catch((error) => this.handleError(error, res));
+  };
+
+  deleteModule = (req: Request, res: Response) => {
+    const moduleId = req.params.id;
+    new DeleteModule(this.moduleRepository)
+      .execute(moduleId)
+      .then(() => res.status(204).send())
       .catch((error) => this.handleError(error, res));
   };
 }

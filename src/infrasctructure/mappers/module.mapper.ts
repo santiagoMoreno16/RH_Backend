@@ -2,7 +2,7 @@ import { CustomError, ModuleEntity } from "../../domain";
 
 export class ModuleMapper {
   static moduleEntityFromObject(object: { [key: string]: any }) {
-    const { id, name, description, labels, type, assessment, modality, duration, deadline, created_by, img } = object;
+    const { id, name, description, labels, type, assessment, modality, duration, deadline, created_by, base64, imgpriv, imgpublic } = object;
 
     if (!id) throw CustomError.badRequest("Missing id");
     if (!name) throw CustomError.badRequest("Missing name");
@@ -14,8 +14,10 @@ export class ModuleMapper {
     if (!deadline) throw CustomError.badRequest("Missing deadline");
     if (!created_by) throw CustomError.badRequest("Missing created by");
     if (!assessment) throw CustomError.badRequest("Missing assessment");
-    if (!img) throw CustomError.badRequest("Missing image");
+    //if (!base64) throw CustomError.badRequest("Missing base64");
+    //if (!imgpriv) throw CustomError.badRequest("Missing imagpriv");
+    //if (!imgpublic) throw CustomError.badRequest("Missing imgpublic");
 
-    return new ModuleEntity(id, name, description, labels, type, assessment, modality, duration, deadline, created_by, img);
+    return new ModuleEntity(id, name, description, labels, type, assessment, modality, duration, deadline, created_by, base64, imgpriv, imgpublic);
   }
 }

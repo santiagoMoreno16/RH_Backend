@@ -6,7 +6,9 @@ interface Category {
     id: string;
     name: string;
     status: boolean;
-    image: string;
+    base64: string,
+    imgpriv: string,
+    imgpublic: string,
   };
 }
 
@@ -25,7 +27,9 @@ export class UpdateCategory implements UpdateCategoryUseCase {
         id: category.id,
         name: category.name,
         status: category.status,
-        image: category.image,
+        base64: category.base64,
+        imgpriv: category.imgpriv,
+        imgpublic: category.imgpublic,
       },
     };
   }

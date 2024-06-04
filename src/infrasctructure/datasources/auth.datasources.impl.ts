@@ -76,7 +76,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
       const isMatching = this.comparePassword(password, user.password);
       if (!isMatching) throw CustomError.badRequest("Autenticación incorrecta");
 
-      if(user.access != access) throw CustomError.badRequest("Autenticación incorrecta")
+      //if(user.access != access) throw CustomError.badRequest("Autenticación incorrecta")
 
       return AccessMapper.accessEntityFromObject(user);
     } catch (error) {

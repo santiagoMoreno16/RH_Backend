@@ -16,6 +16,8 @@ export class ModuleRoutes {
       router.post("/", controller.createModule);
       router.get("/", controller.getAllModules);
       router.get("/:id", controller.getCourseById);
+      router.delete("/:id", controller.deleteModule);
+      router.put("/", controller.updateModule);
   
       
       return router;

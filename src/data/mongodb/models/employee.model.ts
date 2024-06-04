@@ -10,7 +10,9 @@ const employeeSchema = new mongoose.Schema({
     city:{ type: String, required: [false, "City is required"]},
     corporatePosition: {type: String, default: 'Empleado', required: [true, "Corporate Position is required"]},
     userId: { type: Types.ObjectId, ref: "User", required: [true, "User is required"], },
-    img: {type: String, required: [false, "Image is required"]},
+    base64: { type: String, required: true },
+    imgpriv: { type: String, required: true },
+    imgpublic: { type: String, required: true },
 })
 
 

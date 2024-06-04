@@ -5,7 +5,9 @@ interface Category {
   category: {
     name: string;
     status: boolean;
-    image: string;
+    base64: string,
+    imgpriv: string,
+    imgpublic: string,
   };
 }
 
@@ -23,7 +25,9 @@ export class CreateCategory implements CreateCategoryUseCase {
       category: {
         name: category.name,
         status: category.status,
-        image: category.image,
+        base64: category.base64,
+        imgpriv: category.imgpriv,
+        imgpublic: category.imgpublic,
       },
     };
   }

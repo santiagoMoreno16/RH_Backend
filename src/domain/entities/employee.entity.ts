@@ -9,6 +9,8 @@ export class EmployeeEntity {
     public city: number,
     public corporatePosition: string,
     public userId: string,
-    public img?: string
+    public base64: string,
+    public imgpriv: string,
+    public imgpublic: string,
   ) {}
 }
